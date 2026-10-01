@@ -33,11 +33,11 @@ document.addEventListener('keyup', function(event){
 });
 
 function loop_event(){
-    if ( buttons.ArrowLeft || buttons.KeyD){
+    if ( buttons.ArrowLeft || buttons.KeyA){
         platform_X -= SPEED;
     }
 
-    if (buttons.ArrowRight ||buttons.KeyA){
+    if (buttons.ArrowRight ||buttons.KeyD){
         platform_X += SPEED;
     }
     if(platform_X<0){
