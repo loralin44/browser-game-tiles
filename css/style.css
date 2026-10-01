@@ -1,0 +1,35 @@
+.game{
+    width: 360px;
+    height: 640px;
+
+    background-image: url("../assets/fon.png");
+    background-size: 360px 640px;
+    background-repeat: no-repeat;
+    margin: auto;
+    
+    position:fixed;
+
+    image-rendering: pixelated;
+
+}
+#platform{
+    width: 128px;
+    height: 128px;
+    background-image: url("../assets/platform.png");
+    background-size: 128px 128px;
+    background-repeat: no-repeat;
+
+    image-rendering: pixelated;
+
+    
+}
+#ball{
+     width: 128px;
+    height: 128px;
+    background-image: url("../assets/ball.png");
+    background-size: 128px 128px;
+    background-repeat: no-repeat;
+
+    image-rendering: pixelated;
+
+}
