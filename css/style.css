@@ -5,9 +5,14 @@
     background-image: url("../assets/fon.png");
     background-size: 360px 640px;
     background-repeat: no-repeat;
-    margin: auto;
+
     
     position:fixed;
+    left: 50%;
+    right: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
 
     image-rendering: pixelated;
 
@@ -15,13 +20,18 @@
 #platform{
     width: 128px;
     height: 128px;
+
     background-image: url("../assets/platform.png");
     background-size: 128px 128px;
     background-repeat: no-repeat;
 
     image-rendering: pixelated;
 
-    
+    position: absolute;  
+    bottom: 20px;
+    left: 0;
+    transform: translateX(-50%);
+
 }
 #ball{
      width: 128px;
@@ -31,5 +41,17 @@
     background-repeat: no-repeat;
 
     image-rendering: pixelated;
+
+    position: absolute;
+    left: 52%;
+    bottom: 30px;
+    transform: translateX(-50%);
+
+}
+
+.move{
+    animation: move ;
+}
+@keyframes move{
 
 }
