@@ -18,11 +18,11 @@
 
 }
 #platform{
-    width: 128px;
-    height: 128px;
+    width: 115px;
+    height: 14px;
 
     background-image: url("../assets/platform.png");
-    background-size: 128px 128px;
+    background-size: 115px 14px;
     background-repeat: no-repeat;
 
     image-rendering: pixelated;
@@ -33,18 +33,16 @@
 
 }
 #ball{
-     width: 128px;
-    height: 128px;
+    width: 32px;
+    height: 32px;
     background-image: url("../assets/ball.png");
-    background-size: 128px 128px;
+    background-size: 32px 32px;
     background-repeat: no-repeat;
 
     image-rendering: pixelated;
 
     position: absolute;
-    left: 52%;
-    bottom: 30px;
-    transform: translateX(-50%);
+ 
 
 }
 
