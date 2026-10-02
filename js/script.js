@@ -121,3 +121,43 @@ function move_ball(){
 
 } 
 
+
+// Плиточки 
+
+
+const TILES_CONTAINER = document.querySelector('#tiles');
+
+const TILES_SIZE_W = 64;
+const TILES_SIZE_H = 18;
+
+const TILE_NUMBS = Math.floor(GAME_SIZE_W/TILES_SIZE_W);
+const TILES_ROWS = 6;
+
+const TILE_OFFSET_TOP = 40;
+
+
+let tiles = [];
+let tile_x = 0;
+let tile_y = 0;
+
+
+
+for (let i = 0; i < TILE_NUMBS; i++){
+    for ( let j = 0; j < TILES_ROWS; j++){
+        const el = document.createElement('div');
+        el.className = 'tile';
+        
+        tile_x = i * TILES_SIZE_W;
+        tile_y = j * TILES_SIZE_H;
+        tiles.push({tile_x,tile_y, alive: true, el});
+        el.style.left = tile_x + 'px';
+        el.style.top = tile_y  + 'px';
+
+        TILES_CONTAINER.appendChild(el);
+
+
+    }
+
+}
+
+

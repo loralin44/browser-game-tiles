@@ -63,8 +63,19 @@
     display: none;
 }
 
-#tile{
-    width: 32px;
-    height: 9px;
+#tiles{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    
+}
+.tile{
+    
+    width: 64px;
+    height: 18px;
     background-image: url("../assets/tile.png");
+    background-size: 64px 18px;
+    position: absolute;
+
 }
