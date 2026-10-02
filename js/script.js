@@ -65,6 +65,7 @@ setInterval(loop_event, 16);
 
 //начаольное положение шарика
 const BALL = document.querySelector('#ball');
+const MESSAGE = document.querySelector('#message');
 
 let ballX = 116;
 let ballY = 500;
@@ -100,7 +101,7 @@ function move_ball(){
     }
     if (ballY + BALL_SIZE >GAME_SIZE_H ){
         ballY = GAME_SIZE_H - BALL_SIZE;  
-        alert('Ты проиграл');
+        MESSAGE.classList.remove('hidden');
         startButton = false; 
 
 
@@ -112,9 +113,6 @@ function move_ball(){
         ballY = PLATFORM_TOP_Y - BALL_SIZE;
         ballSpeed_Y = - ballSpeed_Y;
     }
-    
-
-    
     
 
     BALL.style.top = ballY + 'px';

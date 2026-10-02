@@ -46,9 +46,19 @@
 
 }
 
-.move{
-    animation: move ;
+#message{
+    width: 234px;
+    height: 58px;
+    background-image: url("../assets/lost.png");
+    background-size: 234px 58px;
+    image-rendering: pixelated;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 10;
 }
-@keyframes move{
 
+.hidden{
+    display: none;
 }
