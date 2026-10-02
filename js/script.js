@@ -46,7 +46,7 @@ function loop_event(){
     if(platform_X > GAME_SIZE-PLATFORM_SIZE){
         platform_X = GAME_SIZE-PLATFORM_SIZE;
     }
-    PLATFORM.computedStyleMap.left = platform_X +'px';
+    PLATFORM.style.left = platform_X +'px';
 
 
 };
