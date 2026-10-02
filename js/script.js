@@ -13,7 +13,6 @@ let platform_X = 116;
     ArrowRight: false,
     KeyA: false,
     KeyD:false,
-
  };
 
 // когда кнопка нажата
@@ -49,6 +48,40 @@ function loop_event(){
     PLATFORM.style.left = platform_X +'px';
 
 
-};
+}
 // повторение каждые 16 миллисекунд
 setInterval(loop_event, 16);
+
+
+
+
+/* Блок движения шара */
+
+
+//начаольное положение шарика
+const BALL = document.querySelector('#ball');
+let ballX = 116;
+let ballY = 500;
+
+let ballSpeed_X = 4;
+let ballSpeed_Y = -4;
+
+let startButton = false; 
+
+document.addEventListener('keydown', function(event){
+    if (event.code == 'Space'){
+        startButton = true;  
+    }
+});
+
+function move_ball(){
+    if (startButton){
+        ballY -=4;
+    }
+
+    BALL.style.top = ballY + 'px';
+    
+
+}
+
+setInterval(move_ball,3);
