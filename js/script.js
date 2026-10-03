@@ -119,8 +119,13 @@ function move_ball(){
         if(!tile.alive) continue;
         if( ballY < tile.y + TILES_SIZE_H
             && ballX + BALL_SIZE > tile.x
-            && ballX + BALL_SIZE > tile.x + TILES_SIZE_W
+            && ballX > tile.x + TILES_SIZE_W
         ){
+            tile.alive = false;
+            tile.el.remove();
+            ballSpeed_Y = -ballSpeed_Y;
+            break;
+
 
         }
 
