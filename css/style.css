@@ -76,6 +76,37 @@
     height: 18px;
     background-image: url("../assets/tile.png");
     background-size: 64px 18px;
+    image-rendering: pixelated;
     position: absolute;
+
+}
+.bnt-start{
+    width: 64px;
+    height: 64px;
+    background-image: url("../assets/play_button.png");
+    background-size: 64px 64px;
+    image-rendering: pixelated;
+    border: none;
+    cursor: pointer;
+
+}
+.bnt-pause{
+    width: 64px;
+    height: 64px;
+    background-image: url("../assets/pause_button.png");
+    background-size: 64px 64px;
+    image-rendering: pixelated;
+    border: none;
+    cursor: pointer;
+
+}
+.bnt-restart{
+    width: 64px;
+    height: 64px;
+    background-image: url("../assets/restart_button.png");
+    background-size: 64px 64px;
+    image-rendering: pixelated;
+    border: none;
+    cursor: pointer;
 
 }
