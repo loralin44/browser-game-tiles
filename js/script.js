@@ -115,6 +115,14 @@ function move_ball(){
     }
 
     for(let i = 0; i < tiles.length; i++){
+        const tile =tiles[i];
+        if( ballY < tile.y + TILES_SIZE_H
+            && tile.alive === true
+            && ballX + BALL_SIZE > tile.x
+            && ballX + BALL_SIZE > tile.x + TILES_SIZE_W
+        ){
+
+        }
 
         
     }
@@ -144,8 +152,8 @@ const TILE_OFFSET_TOP = 40;
 
 
 let tiles = [];
-let tile_x = 0;
-let tile_y = 0;
+let x = 0;
+let y = 0;
  
 const offset_x =20;
 
@@ -154,11 +162,11 @@ for (let i = 0; i < TILE_NUMBS; i++){
         const el = document.createElement('div');
         el.className = 'tile';
         
-        tile_x = i * TILES_SIZE_W;
-        tile_y = j * TILES_SIZE_H;
-        tiles.push({tile_x,tile_y, alive: true, el});
-        el.style.left = offset_x + tile_x + 'px';
-        el.style.top = tile_y  + 'px';
+        x = i * TILES_SIZE_W;
+        y = j * TILES_SIZE_H;
+        tiles.push({x,y, alive: true, el});
+        el.style.left = offset_x + x + 'px';
+        el.style.top = y  + 'px';
 
         TILES_CONTAINER.appendChild(el);
 
