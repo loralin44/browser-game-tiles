@@ -116,8 +116,8 @@ function move_ball(){
 
     for(let i = 0; i < tiles.length; i++){
         const tile =tiles[i];
+        if(!tile.alive) continue;
         if( ballY < tile.y + TILES_SIZE_H
-            && tile.alive === true
             && ballX + BALL_SIZE > tile.x
             && ballX + BALL_SIZE > tile.x + TILES_SIZE_W
         ){
