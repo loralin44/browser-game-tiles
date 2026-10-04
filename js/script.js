@@ -1,8 +1,9 @@
 const app = new PIXI.Application();
 
 await app.init({
-    width : 360,
+    width : 362,
     height: 640,
+
     canvas: document.querySelector('#game-canvas'),
     background: 0xfdf2e3,
     antialias: false,
@@ -13,69 +14,83 @@ await app.init({
 
 
 
-// const GAME_SIZE_W = 360;
-// const GAME_SIZE_H = 640;
+const GAME_SIZE_W = 360;
+const GAME_SIZE_H = 640;
 
 
-// const PLATFORM_SIZE_W = 42;
-// const PLATFORM_SIZE_H = 14;
-// const BALL_SIZE = 16;
-// const TILES_SIZE_W = 32;
-// const TILES_SIZE_H = 16;
+const PLATFORM_SIZE_W = 42;
+const PLATFORM_SIZE_H = 14;
+const BALL_SIZE = 16;
+const TILES_SIZE_W = 32;
+const TILES_SIZE_H = 16;
 
 
-// const TILE_NUMBS = 9;
-// const TILES_ROWS = 4;
-// const TILE_OFFSET_X = 36;
-// const TILE_OFFSET_Y = 80;
+const TILE_NUMBS = 9;
+const TILES_ROWS = 4;
+const TILE_OFFSET_X = 36;
+const TILE_OFFSET_Y = 80;
 
 
 
-// const PLATFORM_TOP_Y = GAME_SIZE_H - 20 -PLATFORM_SIZE_H; 
+const PLATFORM_TOP_Y = GAME_SIZE_H - 20 -PLATFORM_SIZE_H; 
 
-// const BALL_SPEED = 3;
-// const PLATFORM_SPEED = 6;
-// let platform_X = 116;
+const BALL_SPEED = 3;
+const PLATFORM_SPEED = 6;
+let platform_X = 116;
+let ballX = 116;
+let ballY = 500;
 
+const assets =await PIXI.Assets.load([
+    'assets/ball.png',
+    'assets/platform.png',
+    'assets/tile_1.png',
+    'assets/tile_2.png',
+    'assets/tile_3.png',
+    'assets/game_background.png',
+    'assets/border_game.png',
+    'assets/panel_lost.png',
+    'assets/panel_start.png',
 
-// const assets =await PIXI.Assets.load([
-//     'assets/ball.png',
-//     'assets/platform.png',
-//     'assets/tile_1.png',
-//     'assets/tile_2.png',
-//     'assets/tile_3.png',
-//     'assets/game_background.png',
-//     'assets/border_game.png',
-//     'assets/panel_lost.png',
-//     'assets/panel_start.png',
+]);
 
-// ]);
+const field = new PIXI.Container();
+field.scale.set(1.5);
+field.x =0;
+field.y =0;
+app.stage.addChild(field);
 
-// const platform =  new PIXI.Sprite( assets['assets/platform.png']);
-// platform.width = PLATFORM_SIZE_W;
-// platform.height = PLATFORM_SIZE_H;
-// platform.x = platform_X;
-// platform.y = PLATFORM_TOP_Y;
-// app.stage.addChild(platform);
+const bg = new PIXI.Sprite(assets['assets/game_background.png']);
+bg.width = GAME_SIZE_W;
+bg.height = GAME_SIZE_H;
+bg.x =0;
+bg.y =0;
+field.addChild(bg);
 
-// const ball = new PIXI.Sprite(assets['assets/ball.png']);
-// ball.width = BALL_SIZE;
-// ball.height = BALL_SIZE;
-// ball.x = ballX;
-// ball.y =ballY;
-// app.stage.addChild(ball);
+const platform =  new PIXI.Sprite( assets['assets/platform.png']);
+platform.width = PLATFORM_SIZE_W;
+platform.height = PLATFORM_SIZE_H;
+platform.x = platform_X;
+platform.y = PLATFORM_TOP_Y;
+field.addChild(platform);
 
-// const panelStart = new PIXI.Sprite(assets['assets/panel_start.png']);
-// panelStart.x = GAME_SIZE_W/2;
-// panelStart.y = GAME_SIZE_H/2;
-// panelStart.visible = true;
-// app.stage.addChild(panelStart);
+const ball = new PIXI.Sprite(assets['assets/ball.png']);
+ball.width = BALL_SIZE;
+ball.height = BALL_SIZE;
+ball.x = ballX;
+ball.y =ballY;
+field.addChild(ball);
 
-// const panelLost = new PIXI.Sprite(assets['assets/panel_lost.png']);
-// panelLost.x = GAME_SIZE_W/2;
-// panelLost.y = GAME_SIZE_H/2;
-// panelLost.visible = true;
-// app.stage.appendChild(panelLost);
+const panelStart = new PIXI.Sprite(assets['assets/panel_start.png']);
+panelStart.x = GAME_SIZE_W/2;
+panelStart.y = GAME_SIZE_H/2;
+panelStart.visible = true;
+field.addChild(panelStart);
+
+const panelLost = new PIXI.Sprite(assets['assets/panel_lost.png']);
+panelLost.x = GAME_SIZE_W/2;
+panelLost.y = GAME_SIZE_H/2;
+panelLost.visible = false;
+field.addChild(panelLost);
 
 
 
@@ -136,8 +151,7 @@ await app.init({
 // //начаольное положение шарика
 
 
-// let ballX = 116;
-// let ballY = 500;
+
 
 // let ballSpeed_X = 4;
 // let ballSpeed_Y = -4 ;
