@@ -1,112 +1,50 @@
-.game{
-    width: 360px;
-    height: 640px;
 
-    background-image: url("../assets/fon.png");
-    background-size: 360px 640px;
-    background-repeat: no-repeat;
-
-    
-    position:fixed;
-    left: 50%;
-    right: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color:rgb(16, 107, 134) ;
+    display: flex;
+    flex-direction: column;
 
 
+}
+#game-canvas{
+    display:block;
     image-rendering: pixelated;
-
+    image-rendering: crisp-edges;
 }
-#platform{
-    width: 115px;
-    height: 14px;
-
-    background-image: url("../assets/platform.png");
-    background-size: 115px 14px;
-    background-repeat: no-repeat;
-
-    image-rendering: pixelated;
-
-    position: absolute;  
-    bottom: 20px;
-    
-
-}
-#ball{
-    width: 32px;
-    height: 32px;
-    background-image: url("../assets/ball.png");
-    background-size: 32px 32px;
-    background-repeat: no-repeat;
-
-    image-rendering: pixelated;
-
-    position: absolute;
- 
+#buttons {
+    display: flex;
+    gap: 12px;
 
 }
 
-#message{
-    width: 234px;
-    height: 58px;
-    background-image: url("../assets/lost.png");
-    background-size: 234px 58px;
-    image-rendering: pixelated;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    z-index: 10;
-}
 
-.hidden{
-    display: none;
-}
 
-#tiles{
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    
-}
-.tile{
-    
-    width: 64px;
-    height: 18px;
-    background-image: url("../assets/tile.png");
-    background-size: 64px 18px;
-    image-rendering: pixelated;
-    position: absolute;
-
-}
-.bnt-start{
-    width: 64px;
-    height: 64px;
-    background-image: url("../assets/play_button.png");
-    background-size: 64px 64px;
-    image-rendering: pixelated;
-    border: none;
-    cursor: pointer;
-
-}
 .bnt-pause{
+
     width: 64px;
     height: 64px;
-    background-image: url("../assets/pause_button.png");
-    background-size: 64px 64px;
-    image-rendering: pixelated;
+    
+    background-image: url("../assets/button_pause.png");
     border: none;
+    padding: 0;
     cursor: pointer;
+    background-repeat: no-repeat;
+
 
 }
+
 .bnt-restart{
     width: 64px;
     height: 64px;
-    background-image: url("../assets/restart_button.png");
-    background-size: 64px 64px;
-    image-rendering: pixelated;
-    border: none;
+    background-image: url("../assets/button_restart .png");
+    background-repeat: no-repeat;
     cursor: pointer;
-
+    border: none;
 }
+
+

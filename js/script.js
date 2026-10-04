@@ -1,13 +1,52 @@
-const GAME = document.querySelector('.game');
-const PLATFORM = document.querySelector('#platform');
+const app = new PIXI.Application();
+await app.init({
+    width : 360,
+    height: 640,
+    canvas: document.querySelector('#game-canvas'),
+    background: 0xfdf2e3,
+    antialias: false,
+})
+
+
+
+
+
 
 const GAME_SIZE_W = 360;
 const GAME_SIZE_H = 640;
-const PLATFORM_SIZE_W = 115;
-const PLATFORM_SIZE_H =14;
+
+
+const PLATFORM_SIZE_W = 42;
+const PLATFORM_SIZE_H = 14;
+const BALL_SIZE = 32;
+const TILES_SIZE_W = 32;
+const TILES_SIZE_H = 16;
+
+
+const TILE_NUMBS = 9;
+const TILES_ROWS = 4;
+const TILE_OFFSET_X = 36;
+const TILE_OFFSET_Y = 80;
+
+
 
 const PLATFORM_TOP_Y = GAME_SIZE_H - 20 -PLATFORM_SIZE_H; 
-const SPEED = 8;
+
+const BALL_SPEED = 3;
+const PLATFORM_SPEED = 6;
+
+
+const assets =await PIXI.Assets.load([
+    'assets/ball.png',
+    'assets/platform.png',
+    'assets/tile_1.png',
+    'assets/tile_2.png',
+    'assets/tile_3.png',
+    'assets/game_background.png',
+    'assets/border_game.png',
+
+]);
+
 
 let platform_X = 116;
 
@@ -64,12 +103,11 @@ setInterval(loop_event, 16);
 
 
 //начаольное положение шарика
-const BALL = document.querySelector('#ball');
-const MESSAGE = document.querySelector('#message');
+
 
 let ballX = 116;
 let ballY = 500;
-const BALL_SIZE = 32;
+
 let ballSpeed_X = 4;
 let ballSpeed_Y = -4 ;
 
@@ -145,15 +183,7 @@ function move_ball(){
 // Плиточки 
 
 
-const TILES_CONTAINER = document.querySelector('#tiles');
 
-const TILES_SIZE_W = 64;
-const TILES_SIZE_H = 18;
-
-const TILE_NUMBS = Math.floor(GAME_SIZE_W/TILES_SIZE_W);
-const TILES_ROWS = 6;
-
-const TILE_OFFSET_TOP = 40;
 
 
 let tiles = [];
