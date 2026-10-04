@@ -18,9 +18,9 @@ const GAME_SIZE_W = 360;
 const GAME_SIZE_H = 640;
 
 
-const PLATFORM_SIZE_W = 42;
-const PLATFORM_SIZE_H = 14;
-const BALL_SIZE = 16;
+const PLATFORM_SIZE_W = 84;
+const PLATFORM_SIZE_H = 28;
+const BALL_SIZE = 32;
 const TILES_SIZE_W = 32;
 const TILES_SIZE_H = 16;
 
@@ -36,12 +36,12 @@ const PLATFORM_TOP_Y = GAME_SIZE_H - 20 -PLATFORM_SIZE_H;
 
 const BALL_SPEED = 3;
 const PLATFORM_SPEED = 6;
-let platform_X = 116;
-let ballX = 116;
+let platform_X = (360-PLATFORM_SIZE_W)/2;
+let ballX = 360/2 - BALL_SIZE/2;
 let ballY = 500;
 
 const assets =await PIXI.Assets.load([
-    'assets/ball.png',
+    'assets/ball_2.png',
     'assets/platform.png',
     'assets/tile_1.png',
     'assets/tile_2.png',
@@ -54,16 +54,16 @@ const assets =await PIXI.Assets.load([
 ]);
 
 const field = new PIXI.Container();
-field.scale.set(1.5);
+field.scale.set(1.0);
 field.x =0;
 field.y =0;
 app.stage.addChild(field);
 
 const bg = new PIXI.Sprite(assets['assets/game_background.png']);
-bg.width = GAME_SIZE_W;
-bg.height = GAME_SIZE_H;
-bg.x =0;
-bg.y =0;
+bg.width = 328;
+bg.height = 608;
+bg.x =(362-328)/2;
+bg.y =(640-608)/2;
 field.addChild(bg);
 
 const platform =  new PIXI.Sprite( assets['assets/platform.png']);
@@ -73,7 +73,7 @@ platform.x = platform_X;
 platform.y = PLATFORM_TOP_Y;
 field.addChild(platform);
 
-const ball = new PIXI.Sprite(assets['assets/ball.png']);
+const ball = new PIXI.Sprite(assets['assets/ball_2.png']);
 ball.width = BALL_SIZE;
 ball.height = BALL_SIZE;
 ball.x = ballX;
@@ -81,17 +81,24 @@ ball.y =ballY;
 field.addChild(ball);
 
 const panelStart = new PIXI.Sprite(assets['assets/panel_start.png']);
-panelStart.x = GAME_SIZE_W/2;
-panelStart.y = GAME_SIZE_H/2;
+panelStart.x = (362 - 160 )/2;
+panelStart.y = (640 - 60)/2;
 panelStart.visible = true;
 field.addChild(panelStart);
 
 const panelLost = new PIXI.Sprite(assets['assets/panel_lost.png']);
-panelLost.x = GAME_SIZE_W/2;
-panelLost.y = GAME_SIZE_H/2;
+panelLost.x =  (362 - 160 )/2;
+panelLost.y = (640 - 60)/2;
 panelLost.visible = false;
 field.addChild(panelLost);
 
+
+const border = new PIXI.Sprite(assets['assets/border_game.png']);
+border.width = 362;
+border.height = 640;
+border.x =0;
+border.y =0;
+app.stage.addChild(border);
 
 
 
