@@ -14,19 +14,19 @@ await app.init({
 
 
 
-const GAME_SIZE_W = 360;
+const GAME_SIZE_W = 328;
 const GAME_SIZE_H = 640;
 
 
-const PLATFORM_SIZE_W = 84;
-const PLATFORM_SIZE_H = 28;
+const PLATFORM_SIZE_W = 80;
+const PLATFORM_SIZE_H = 30;
 const BALL_SIZE = 32;
 const TILES_SIZE_W = 48;
 const TILES_SIZE_H = 24;
 
 
 const TILE_NUMBS = 6;
-const TILES_ROWS = 7;
+const TILES_ROWS = 8;
 const TILE_OFFSET_X = 36;
 const TILE_OFFSET_Y = 40;
 
@@ -140,52 +140,126 @@ for (let i = 0; i < TILE_NUMBS; i++){
 
 }
 
+const buttons = {
+    ArrowLeft: false,
+    ArrowRight: false,
+    KeyA: false,
+    KeyD:false,
+};
+
+let ballSpeed_X = 4;
+let ballSpeed_Y = -4 ;
+
+let startButton = false;  
+
+document.addEventListener('keydown', function(event){ 
+    if (event.code == 'Space'){
+        startButton = true; 
+        panelStart.visible = false;  
+        panelLost.visible = false;
+
+       
+        ballX = 360 / 2 - BALL_SIZE / 2;
+        ballY = 500;
+        ballSpeed_X= 4;
+        ballSpeed_Y = -4;
+        
+    }
+});
+
+// когда кнопка нажата
+document.addEventListener('keydown', function(event) {
+    if(event.code in buttons){
+        buttons[event.code] = true;
+        event.preventDefault();   
+    }
+});
+
+// когда кнопку отпустили 
+document.addEventListener('keyup', function(event){
+    if(event.code in buttons){
+        buttons[event.code] = false;
+        event.preventDefault();
+    }
+});
 
 
-// var buttons = {
-//     ArrowLeft: false,
-//     ArrowRight: false,
-//     KeyA: false,
-//     KeyD:false,
-// };
-
-// // когда кнопка нажата
-// document.addEventListener('keydown', function(event) {
-//     if(event.code in buttons){
-//         buttons[event.code] = true;
-//         event.preventDefault();   
-//     }
-// });
-
-// // когда кнопку отпустили 
-// document.addEventListener('keyup', function(event){
-//     if(event.code in buttons){
-//         buttons[event.code] = false;
-//         event.preventDefault();
-//     }
-// });
-
-// function loop_event(){
-//     if ( buttons.ArrowLeft || buttons.KeyA){
-//         platform_X -= SPEED;
-//     }
-
-//     if (buttons.ArrowRight ||buttons.KeyD){
-//         platform_X += SPEED;
-//     }
-//     if(platform_X<0){
-//         platform_X = 0;
-//     }
-//     if(platform_X > GAME_SIZE_W-PLATFORM_SIZE_W){
-//         platform_X = GAME_SIZE_W-PLATFORM_SIZE_W;
-//     }
-//     PLATFORM.style.left = platform_X +'px';
-//     move_ball();
+function move_ball(){
+    if (startButton){
+        ballX += ballSpeed_X;
+        ballY += ballSpeed_Y;
+    }
+    if(ballX + BALL_SIZE > GAME_SIZE_W){
+        ballX = GAME_SIZE_W - BALL_SIZE;
+        ballSpeed_X = - ballSpeed_X ; 
+  
+    }
+    if (ballX < 0){
+        ballX = 0;
+        ballSpeed_X = -ballSpeed_X;  
+    }
+    if (ballY < 0){
+        ballY = 0;
+        ballSpeed_Y = -ballSpeed_Y;
+    }
+    if (ballY + BALL_SIZE >GAME_SIZE_H ){
+        ballY = GAME_SIZE_H - BALL_SIZE;  
+        panelLost.visible = true;
+        startButton = false; 
 
 
-// }
-// // повторение каждые 16 миллисекунд
-// setInterval(loop_event, 16);
+    }
+    if ( ballSpeed_Y > 0
+        &&(ballY + BALL_SIZE  >= PLATFORM_TOP_Y)
+        &&((ballX + BALL_SIZE > platform_X)
+        && (ballX< platform_X+PLATFORM_SIZE_W))){
+        ballY = PLATFORM_TOP_Y - BALL_SIZE;
+        ballSpeed_Y = - ballSpeed_Y;
+    }
+
+    for(let i = 0; i < tiles.length; i++){
+        const tile = tiles[i];
+        if(!tile.alive) continue;
+        if( ballY < tile.y + TILES_SIZE_H
+            && ballX + BALL_SIZE > tile.x
+            && ballX > tile.x + TILES_SIZE_W
+        ){
+            tile.alive = false;
+            tile.sprite.visible = false;
+            ballSpeed_Y = -ballSpeed_Y;
+            break;
+        }
+   
+    }
+
+    ball.x = ballX;
+    ball.y = ballY;
+    
+} 
+
+
+
+function loop_event(){
+    if ( buttons.ArrowLeft || buttons.KeyA){
+        platform_X -= PLATFORM_SPEED;
+    }
+
+    if (buttons.ArrowRight ||buttons.KeyD){
+        platform_X += PLATFORM_SPEED;
+    }
+    if(platform_X<0){
+        platform_X = 0;
+    }
+    if(platform_X > GAME_SIZE_W-PLATFORM_SIZE_W){
+        platform_X = GAME_SIZE_W-PLATFORM_SIZE_W;
+    }
+    platform.x = platform_X;
+    move_ball();
+
+
+ }
+
+app.ticker.add(loop_event);
 
 
 
@@ -198,76 +272,9 @@ for (let i = 0; i < TILE_NUMBS; i++){
 
 
 
-// let ballSpeed_X = 4;
-// let ballSpeed_Y = -4 ;
-
-// let startButton = false;  
-
-// document.addEventListener('keydown', function(event){ 
-//     if (event.code == 'Space'){
-//         startButton = true;  
-//     }
-// });
-
-// function move_ball(){
-//     if (startButton){
-//         ballX += ballSpeed_X;
-//         ballY += ballSpeed_Y;
-//     }
-//     if(ballX + BALL_SIZE > GAME_SIZE_W){
-//         ballX = GAME_SIZE_W - BALL_SIZE;
-//         ballSpeed_X = - ballSpeed_X ; 
-  
-//     }
-//     if (ballX < 0){
-//         ballX = 0;
-//         ballSpeed_X = -ballSpeed_X;  
-//     }
-//     if (ballY < 0){
-//         ballY = 0;
-//         ballSpeed_Y = -ballSpeed_Y;
-//     }
-//     if (ballY + BALL_SIZE >GAME_SIZE_H ){
-//         ballY = GAME_SIZE_H - BALL_SIZE;  
-//         MESSAGE.classList.remove('hidden');
-//         startButton = false; 
 
 
-//     }
-//     if ( ballSpeed_Y > 0
-//         &&(ballY + BALL_SIZE  >= PLATFORM_TOP_Y)
-//         &&((ballX + BALL_SIZE > platform_X)
-//         && (ballX< platform_X+PLATFORM_SIZE_W))){
-//         ballY = PLATFORM_TOP_Y - BALL_SIZE;
-//         ballSpeed_Y = - ballSpeed_Y;
-//     }
 
-//     for(let i = 0; i < tiles.length; i++){
-//         const tile =tiles[i];
-//         if(!tile.alive) continue;
-//         if( ballY < tile.y + TILES_SIZE_H
-//             && ballX + BALL_SIZE > tile.x
-//             && ballX > tile.x + TILES_SIZE_W
-//         ){
-//             tile.alive = false;
-//             tile.el.remove();
-//             ballSpeed_Y = -ballSpeed_Y;
-//             break;
-
-
-//         }
-
-        
-//     }
-    
-
-    
-
-//     BALL.style.top = ballY + 'px';
-//     BALL.style.left   = ballX + 'px';
-    
-
-// } 
 
 
 // // Плиточки 
