@@ -58,8 +58,8 @@ app.stage.addChild(field);
 const bg = new PIXI.Sprite(assets['assets/game_background.png']);
 bg.width = 328;
 bg.height = 608;
-bg.x =(362-328)/2;
-bg.y =(640-608)/2;
+bg.x =17;
+bg.y =16;
 field.addChild(bg);
 
 const tilesLayer = new PIXI.Container();
@@ -76,15 +76,15 @@ const TILE_TEXTURE = [
 const platform =  new PIXI.Sprite( assets['assets/platform_5.png']);
 platform.width = PLATFORM_SIZE_W;
 platform.height = PLATFORM_SIZE_H;
-platform.x = platform_X;
-platform.y = PLATFORM_TOP_Y;
+platform.x = 17 + platform_X;
+platform.y =   PLATFORM_TOP_Y;
 field.addChild(platform);
 
 const ball = new PIXI.Sprite(assets['assets/ball_2.png']);
 ball.width = BALL_SIZE;
 ball.height = BALL_SIZE;
-ball.x = ballX;
-ball.y =ballY;
+ball.x = 17 + ballX;
+ball.y =  ballY;
 field.addChild(ball);
 
 const panelStart = new PIXI.Sprite(assets['assets/panel_start.png']);
@@ -143,14 +143,11 @@ const buttons = {
     KeyD:false,
 };
 
-let ballSpeed_X = 2;
-let ballSpeed_Y = -2 ;
+let ballSpeed_X = 1;
+let ballSpeed_Y = -1 ;
 
 let startButton = false; 
-// const ballCenterX = ballX +BALL_SIZE/2;
-// const ballCenterY = ballY + BALL_SIZE/2;
-// const tileCenterX = tile.x + TILES_SIZE_W / 2;
-// const tileCenterY =  tile.y + TILES_SIZE_H / 2;
+//  
 
 
 
@@ -164,8 +161,8 @@ document.addEventListener('keydown', function(event){
        
         ballX = 360 / 2 - BALL_SIZE / 2;
         ballY = 500;
-        ballSpeed_X= 2;
-        ballSpeed_Y = -2  ;
+        ballSpeed_X= 1;
+        ballSpeed_Y = -1  ;
         
     }
 });
@@ -246,7 +243,7 @@ function move_ball(){
    
     }
 
-    ball.x = ballX;
+    ball.x = 17+ballX;
     ball.y = ballY;
     
 } 
@@ -267,7 +264,7 @@ function loop_event(){
     if(platform_X > GAME_SIZE_W-PLATFORM_SIZE_W){
         platform_X = GAME_SIZE_W-PLATFORM_SIZE_W;
     }
-    platform.x = platform_X;
+    platform.x = 17+platform_X;
     move_ball();
 
 
