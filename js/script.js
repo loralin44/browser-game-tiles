@@ -21,14 +21,14 @@ const GAME_SIZE_H = 640;
 const PLATFORM_SIZE_W = 84;
 const PLATFORM_SIZE_H = 28;
 const BALL_SIZE = 32;
-const TILES_SIZE_W = 32;
-const TILES_SIZE_H = 16;
+const TILES_SIZE_W = 48;
+const TILES_SIZE_H = 24;
 
 
-const TILE_NUMBS = 9;
-const TILES_ROWS = 4;
+const TILE_NUMBS = 6;
+const TILES_ROWS = 7;
 const TILE_OFFSET_X = 36;
-const TILE_OFFSET_Y = 80;
+const TILE_OFFSET_Y = 40;
 
 
 
@@ -44,8 +44,8 @@ const assets =await PIXI.Assets.load([
     'assets/ball_2.png',
     'assets/platform_5.png',
     'assets/tile_21.png',
-    'assets/tile_2.png',
-    'assets/tile_3.png',
+    'assets/tile_22.png',
+    'assets/tile_23.png',
     'assets/game_background.png',
     'assets/border_game.png',
     'assets/panel_lost.png',
@@ -65,6 +65,17 @@ bg.height = 608;
 bg.x =(362-328)/2;
 bg.y =(640-608)/2;
 field.addChild(bg);
+
+const tilesLayer = new PIXI.Container();
+field.addChild(tilesLayer);
+
+const TILE_TEXTURE = [
+    assets['assets/tile_21.png'],
+    assets['assets/tile_22.png'],
+    assets['assets/tile_23.png'],
+];
+
+
 
 const platform =  new PIXI.Sprite( assets['assets/platform_5.png']);
 platform.width = PLATFORM_SIZE_W;
@@ -100,11 +111,34 @@ border.x =0;
 border.y =0;
 app.stage.addChild(border);
 
-const tilesLayer = new PIXI.Container();
-field.addChild(tilesLayer);
 
 
 
+let tiles =[];
+
+
+for (let i = 0; i < TILE_NUMBS; i++){
+    for ( let j = 0; j < TILES_ROWS; j++){
+        const texIndex = ( i + j ) % TILE_TEXTURE.length;
+        const texture =TILE_TEXTURE[texIndex];
+
+        const sprite = new PIXI.Sprite(texture);
+        sprite.width = TILES_SIZE_W;
+        sprite.height = TILES_SIZE_H;
+
+        const x = TILE_OFFSET_X + i * TILES_SIZE_W;
+        const y = TILE_OFFSET_Y + j * TILES_SIZE_H;
+
+        sprite.x = x;
+        sprite.y = y;
+
+        tilesLayer.addChild(sprite);
+        tiles.push({x,y,alive: true, sprite});
+
+
+    }
+
+}
 
 
 
@@ -248,22 +282,6 @@ field.addChild(tilesLayer);
  
 // const offset_x =20;
 
-// for (let i = 0; i < TILE_NUMBS; i++){
-//     for ( let j = 0; j < TILES_ROWS; j++){
-//         const el = document.createElement('div');
-//         el.className = 'tile';
-        
-//         x = i * TILES_SIZE_W;
-//         y = j * TILES_SIZE_H;
-//         tiles.push({x,y, alive: true, el});
-//         el.style.left = offset_x + x + 'px';
-//         el.style.top = y  + 'px';
 
-//         TILES_CONTAINER.appendChild(el);
-
-
-//     }
-
-// }
 
 
