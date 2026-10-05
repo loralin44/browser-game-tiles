@@ -11,7 +11,8 @@ await app.init({
 
 
 const GAME_SIZE_W = 328;
-const GAME_SIZE_H = 640;
+const GAME_SIZE_H = 608;
+
 
 
 const PLATFORM_SIZE_W = 80;
@@ -63,7 +64,9 @@ bg.y =16;
 field.addChild(bg);
 
 const tilesLayer = new PIXI.Container();
-field.addChild(tilesLayer);
+ 
+tilesLayer.y = 16;
+field.addChild(tilesLayer);;
 
 const TILE_TEXTURE = [
     assets['assets/tile_21.png'],
@@ -77,14 +80,14 @@ const platform =  new PIXI.Sprite( assets['assets/platform_5.png']);
 platform.width = PLATFORM_SIZE_W;
 platform.height = PLATFORM_SIZE_H;
 platform.x = 17 + platform_X;
-platform.y =   PLATFORM_TOP_Y;
+platform.y = 16 + PLATFORM_TOP_Y;
 field.addChild(platform);
 
 const ball = new PIXI.Sprite(assets['assets/ball_2.png']);
 ball.width = BALL_SIZE;
 ball.height = BALL_SIZE;
 ball.x = 17 + ballX;
-ball.y =  ballY;
+ball.y = ballY;
 field.addChild(ball);
 
 const panelStart = new PIXI.Sprite(assets['assets/panel_start.png']);
@@ -143,8 +146,6 @@ const buttons = {
     KeyD:false,
 };
 
-// let ballSpeed_X = 1;
-// let ballSpeed_Y = -1 ;
 let ballSpeed = 1;
 const BALL_SPEED_MAX = 7;
 let ballAngle  = -Math.PI/4;
@@ -201,8 +202,8 @@ function move_ball(){
         ballY = 0;
         ballAngle = - ballAngle;
     }
-    if (ballY + BALL_SIZE >GAME_SIZE_H ){
-        ballY = GAME_SIZE_H - BALL_SIZE;  
+    if (ballY + BALL_SIZE >GAME_SIZE_H -16){
+        ballY = GAME_SIZE_H - 16 - BALL_SIZE;  
         panelLost.visible = true;
         startButton = false; 
 
@@ -258,9 +259,9 @@ function move_ball(){
    
     }
 
-    ball.x = 17+ballX;
-    ball.y = ballY;
-    
+    ball.x = 17 + ballX;
+    ball.y = 16 +  ballY;
+
 } 
 
 
@@ -279,7 +280,8 @@ function loop_event(){
     if(platform_X > GAME_SIZE_W-PLATFORM_SIZE_W){
         platform_X = GAME_SIZE_W-PLATFORM_SIZE_W;
     }
-    platform.x = 17+platform_X;
+    platform.x = 17 + platform_X;
+    
     move_ball();
 
 
