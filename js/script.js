@@ -267,6 +267,7 @@ function move_ball(){
 
 
 function loop_event(){
+    if (isPaused) return;
     if ( buttons.ArrowLeft || buttons.KeyA){
         platform_X -= PLATFORM_SPEED;
     }
@@ -286,6 +287,36 @@ function loop_event(){
 
 
  }
+
+
+
+
+let isPaused = false;
+const pauseButton = document.querySelector('.bnt-pause');
+pauseButton.addEventListener('click',function(){
+    isPaused = !isPaused;
+});
+
+const restartButton = document.querySelector('.bnt-restart');
+restartButton.addEventListener('click', function(){
+    startButton =false;
+    isPaused = false;
+
+    ballSpeed = 1;
+    ballAngle = -Math.PI / 4;
+    ballX = GAME_SIZE_W / 2 -BALL_SIZE / 2;
+    ballY =500;
+
+    for (let i = 0; i < tiles.length; i++) {
+        const tile = tiles[i];
+        tile.alive = true;
+        tile.sprite.visible = true;
+    }
+    panelLost.visible = false;
+    panelStart.visible = true;
+    platform_X = (GAME_SIZE_W - PLATFORM_SIZE_W) / 2;
+
+});
 
 app.ticker.add(loop_event);
 

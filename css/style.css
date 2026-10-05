@@ -35,23 +35,30 @@ body{
 
 .bnt-pause{
 
-    width: 64px;
-    height: 64px;
+    width: 128px;
+    height: 128px;
     
     background-image: url("../assets/button_pause.png");
+    background-size: 128px 128px;
     border: none;
     padding: 0;
     cursor: pointer;
+    image-rendering: pixelated;
+    background-color: transparent;
     background-repeat: no-repeat;
 
 
 }
 
 .bnt-restart{
-    width: 64px;
-    height: 64px;
+    width: 128px;
+    height: 128px;
     background-image: url("../assets/button_restart .png");
+    background-size: 128px 128px;
     background-repeat: no-repeat;
+    background-color: transparent;
+    image-rendering: pixelated;
+    border: none;
     cursor: pointer;
     border: none;
 }
