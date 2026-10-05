@@ -23,7 +23,7 @@ const TILES_SIZE_H = 24;
 
 
 const TILE_NUMBS = 6;
-const TILES_ROWS = 8;
+const TILES_ROWS = 8 ;
 const TILE_OFFSET_X = 36;
 const TILE_OFFSET_Y = 40;
 
@@ -47,6 +47,7 @@ const assets =await PIXI.Assets.load([
     'assets/border_game.png',
     'assets/panel_lost.png',
     'assets/panel_start.png',
+    'assets/panel_win.png',
 
 ]);
 
@@ -102,6 +103,11 @@ panelLost.y = (640 - 60)/2;
 panelLost.visible = false;
 field.addChild(panelLost);
 
+const panelWin = new PIXI.Sprite(assets['assets/panel_win.png']);
+panelWin.x = (362 - 160 )/2;
+panelWin.y = (640 - 60)/2;
+panelWin.visible = false;
+field.addChild(panelWin);
 
 const border = new PIXI.Sprite(assets['assets/border_game.png']);
 border.width = 362;
@@ -151,9 +157,21 @@ const BALL_SPEED_MAX = 7;
 let ballAngle  = -Math.PI/4;
 
 let startButton = false; 
-//  
 
+let score = 0;
+const scoreEl = document.querySelector('#score');
+function updateScore(){
+    scoreEl.textContent = String(score).padStart(6, '0');
+}
+updateScore();
 
+function checkWin(){
+    const anyAlive =tiles.some(tile =>tile.alive);
+    if (!anyAlive){
+        panelWin.visible = true;
+        startButton = false;
+    }
+}
 
 
 document.addEventListener('keydown', function(event){ 
@@ -242,6 +260,9 @@ function move_ball(){
 
             tile.alive = false;
             tile.sprite.visible = false;
+            score += 10 ;
+            updateScore();
+            checkWin();
 
             if(overlapX< overlapY){
                 ballAngle = Math.PI - ballAngle;
@@ -288,6 +309,7 @@ function loop_event(){
 
  }
 
+ 
 
 
 
