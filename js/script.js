@@ -337,6 +337,8 @@ restartButton.addEventListener('click', function(){
     panelLost.visible = false;
     panelStart.visible = true;
     platform_X = (GAME_SIZE_W - PLATFORM_SIZE_W) / 2;
+    score = 0;
+    updateScore();
 
 });
 
