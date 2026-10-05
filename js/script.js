@@ -143,8 +143,13 @@ const buttons = {
     KeyD:false,
 };
 
-let ballSpeed_X = 1;
-let ballSpeed_Y = -1 ;
+// let ballSpeed_X = 1;
+// let ballSpeed_Y = -1 ;
+let ballSpeed = 1;
+const BALL_SPEED_MAX = 7;
+let ballAngle  = -Math.PI/4;
+let ballSpeed_X = Math.cos(ballAngle) *  ballSpeed;
+let ballSpeed_Y = Math.sin(ballAngle) * ballSpeed;
 
 let startButton = false; 
 //  
@@ -159,10 +164,6 @@ document.addEventListener('keydown', function(event){
         panelLost.visible = false;
 
        
-        ballX = 360 / 2 - BALL_SIZE / 2;
-        ballY = 500;
-        ballSpeed_X= 1;
-        ballSpeed_Y = -1  ;
         
     }
 });
@@ -211,10 +212,24 @@ function move_ball(){
     }
     if ( ballSpeed_Y > 0
         &&(ballY + BALL_SIZE  >= PLATFORM_TOP_Y)
+        &&(ballY + BALL_SIZE <= PLATFORM_TOP_Y + PLATFORM_SIZE_H)
         &&((ballX + BALL_SIZE > platform_X)
         && (ballX< platform_X+PLATFORM_SIZE_W))){
-        ballY = PLATFORM_TOP_Y - BALL_SIZE;
-        ballSpeed_Y = - ballSpeed_Y;
+
+            const ballCenterX = ballX + BALL_SIZE/2;
+            const platformCenterX = platform_X +PLATFORM_SIZE_W/2;
+
+            const hitPosition = (ballCenterX- platformCenterX)/(PLATFORM_SIZE_W/2);
+
+            ballAngle = hitPosition * (Math.PI / 3) - Math.PI/2;
+
+            ballSpeed_X = Math.cos(ballAngle) *  ballSpeed;
+            ballSpeed_Y = Math.sin(ballAngle) * ballSpeed;
+
+            ballY = PLATFORM_TOP_Y - BALL_SIZE;
+          
+
+
     }
 
     for(let i = 0; i < tiles.length; i++){
@@ -238,6 +253,7 @@ function move_ball(){
             }else{
                 ballSpeed_Y = -ballSpeed_Y;
             }
+            break;
             
         }
    
