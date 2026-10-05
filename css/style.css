@@ -30,7 +30,12 @@ body{
     gap: 12px;
 
 }
-
+#left_hub{
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+}
 
 
 .bnt-pause{
@@ -53,7 +58,7 @@ body{
 .bnt-restart{
     width: 128px;
     height: 128px;
-    background-image: url("../assets/button_restart .png");
+    background-image: url("../assets/button_restart.png");
     background-size: 128px 128px;
     background-repeat: no-repeat;
     background-color: transparent;
