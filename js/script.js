@@ -10,10 +10,6 @@ await app.init({
 })
 
 
-
-
-
-
 const GAME_SIZE_W = 328;
 const GAME_SIZE_H = 640;
 
@@ -150,7 +146,14 @@ const buttons = {
 let ballSpeed_X = 2;
 let ballSpeed_Y = -2 ;
 
-let startButton = false;  
+let startButton = false; 
+// const ballCenterX = ballX +BALL_SIZE/2;
+// const ballCenterY = ballY + BALL_SIZE/2;
+// const tileCenterX = tile.x + TILES_SIZE_W / 2;
+// const tileCenterY =  tile.y + TILES_SIZE_H / 2;
+
+
+
 
 document.addEventListener('keydown', function(event){ 
     if (event.code == 'Space'){
@@ -162,7 +165,7 @@ document.addEventListener('keydown', function(event){
         ballX = 360 / 2 - BALL_SIZE / 2;
         ballY = 500;
         ballSpeed_X= 2;
-        ballSpeed_Y = -2;
+        ballSpeed_Y = -2  ;
         
     }
 });
@@ -226,10 +229,19 @@ function move_ball(){
             && ballX + BALL_SIZE > tile.x
             && ballX < tile.x + TILES_SIZE_W
         ){
+            //насколько мяч перекрывает плитку , с какой стороны
+            const overlapX = Math.min(ballX + BALL_SIZE - tile.x, tile.x + TILES_SIZE_W - ballX);
+            const overlapY = Math.min(ballY + BALL_SIZE - tile.y, tile.y +TILES_SIZE_H - ballY);
+
             tile.alive = false;
             tile.sprite.visible = false;
-            ballSpeed_Y = -ballSpeed_Y;
-            break;
+
+            if(overlapX< overlapY){
+                ballSpeed_X = -ballSpeed_X;
+            }else{
+                ballSpeed_Y = -ballSpeed_Y;
+            }
+            
         }
    
     }
