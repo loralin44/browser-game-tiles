@@ -148,8 +148,6 @@ const buttons = {
 let ballSpeed = 1;
 const BALL_SPEED_MAX = 7;
 let ballAngle  = -Math.PI/4;
-let ballSpeed_X = Math.cos(ballAngle) *  ballSpeed;
-let ballSpeed_Y = Math.sin(ballAngle) * ballSpeed;
 
 let startButton = false; 
 //  
@@ -187,21 +185,21 @@ document.addEventListener('keyup', function(event){
 
 function move_ball(){
     if (startButton){
-        ballX += ballSpeed_X;
-        ballY += ballSpeed_Y;
+        ballX += Math.cos(ballAngle) * ballSpeed;
+        ballY += Math.sin(ballAngle) * ballSpeed;
     }
     if(ballX + BALL_SIZE > GAME_SIZE_W){
         ballX = GAME_SIZE_W - BALL_SIZE;
-        ballSpeed_X = - ballSpeed_X ; 
+        ballAngle = Math.PI - ballAngle ; 
   
     }
     if (ballX < 0){
         ballX = 0;
-        ballSpeed_X = -ballSpeed_X;  
+        ballAngle = Math.PI - ballAngle ;  
     }
     if (ballY < 0){
         ballY = 0;
-        ballSpeed_Y = -ballSpeed_Y;
+        ballAngle = - ballAngle;
     }
     if (ballY + BALL_SIZE >GAME_SIZE_H ){
         ballY = GAME_SIZE_H - BALL_SIZE;  
@@ -210,7 +208,7 @@ function move_ball(){
 
 
     }
-    if ( ballSpeed_Y > 0
+    if (  Math.sin(ballAngle) > 0
         &&(ballY + BALL_SIZE  >= PLATFORM_TOP_Y)
         &&(ballY + BALL_SIZE <= PLATFORM_TOP_Y + PLATFORM_SIZE_H)
         &&((ballX + BALL_SIZE > platform_X)
@@ -222,10 +220,6 @@ function move_ball(){
             const hitPosition = (ballCenterX- platformCenterX)/(PLATFORM_SIZE_W/2);
 
             ballAngle = hitPosition * (Math.PI / 3) - Math.PI/2;
-
-            ballSpeed_X = Math.cos(ballAngle) *  ballSpeed;
-            ballSpeed_Y = Math.sin(ballAngle) * ballSpeed;
-
             ballY = PLATFORM_TOP_Y - BALL_SIZE;
           
 
@@ -249,9 +243,14 @@ function move_ball(){
             tile.sprite.visible = false;
 
             if(overlapX< overlapY){
-                ballSpeed_X = -ballSpeed_X;
+                ballAngle = Math.PI - ballAngle;
             }else{
-                ballSpeed_Y = -ballSpeed_Y;
+                ballAngle = -ballAngle;
+            }
+
+            if (ballSpeed < BALL_SPEED_MAX){
+                ballSpeed *= 1.04;
+        
             }
             break;
             
