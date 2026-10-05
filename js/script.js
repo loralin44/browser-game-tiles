@@ -42,8 +42,8 @@ let ballY = 500;
 
 const assets =await PIXI.Assets.load([
     'assets/ball_2.png',
-    'assets/platform.png',
-    'assets/tile_1.png',
+    'assets/platform_5.png',
+    'assets/tile_21.png',
     'assets/tile_2.png',
     'assets/tile_3.png',
     'assets/game_background.png',
@@ -66,7 +66,7 @@ bg.x =(362-328)/2;
 bg.y =(640-608)/2;
 field.addChild(bg);
 
-const platform =  new PIXI.Sprite( assets['assets/platform.png']);
+const platform =  new PIXI.Sprite( assets['assets/platform_5.png']);
 platform.width = PLATFORM_SIZE_W;
 platform.height = PLATFORM_SIZE_H;
 platform.x = platform_X;
@@ -99,6 +99,10 @@ border.height = 640;
 border.x =0;
 border.y =0;
 app.stage.addChild(border);
+
+const tilesLayer = new PIXI.Container();
+field.addChild(tilesLayer);
+
 
 
 
