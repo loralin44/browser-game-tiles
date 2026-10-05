@@ -147,8 +147,8 @@ const buttons = {
     KeyD:false,
 };
 
-let ballSpeed_X = 4;
-let ballSpeed_Y = -4 ;
+let ballSpeed_X = 2;
+let ballSpeed_Y = -2 ;
 
 let startButton = false;  
 
@@ -161,8 +161,8 @@ document.addEventListener('keydown', function(event){
        
         ballX = 360 / 2 - BALL_SIZE / 2;
         ballY = 500;
-        ballSpeed_X= 4;
-        ballSpeed_Y = -4;
+        ballSpeed_X= 2;
+        ballSpeed_Y = -2;
         
     }
 });
@@ -220,9 +220,11 @@ function move_ball(){
     for(let i = 0; i < tiles.length; i++){
         const tile = tiles[i];
         if(!tile.alive) continue;
+
         if( ballY < tile.y + TILES_SIZE_H
+            && ballY + BALL_SIZE > tile.y
             && ballX + BALL_SIZE > tile.x
-            && ballX > tile.x + TILES_SIZE_W
+            && ballX < tile.x + TILES_SIZE_W
         ){
             tile.alive = false;
             tile.sprite.visible = false;
