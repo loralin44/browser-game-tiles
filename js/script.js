@@ -23,7 +23,7 @@ class BreakoutGame{
 
         this.PLATFORM_TOP_Y = this.GAME_SIZE_H - 20 - this.PLATFORM_SIZE_H;
         this.PLATFORM_SPEED = 6;
-        this.BALL_SPEED_MAX = 3;
+        this.BALL_SPEED_MAX = 8;
 
         this.platform_X = (this.GAME_SIZE_W - this.PLATFORM_SIZE_W) / 2;
         this.ballX = this.GAME_SIZE_W / 2 - this.BALL_SIZE / 2;
@@ -35,7 +35,7 @@ class BreakoutGame{
         this.lives = 3;
        
 
-        this.ballSpeed = 1;
+        this.ballSpeed = 3;
         this.ballAngle = -Math.PI / 4;
         this.buttons = { ArrowLeft: false, ArrowRight: false, KeyA: false, KeyD: false };
 
@@ -354,7 +354,7 @@ class BreakoutGame{
                     collisionHandler = true;
 
                     if (this.ballSpeed < this.BALL_SPEED_MAX) {
-                        this.ballSpeed *= 1.02;
+                        this.ballSpeed *= 1.05;
                     }
                 }
                 break;
