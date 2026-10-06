@@ -31,11 +31,10 @@ const TILE_OFFSET_Y = 40;
 
 const PLATFORM_TOP_Y = GAME_SIZE_H - 20 -PLATFORM_SIZE_H; 
 
-const BALL_SPEED = 3;
 const PLATFORM_SPEED = 6;
-let platform_X = (360-PLATFORM_SIZE_W)/2;
-let ballX = 360/2 - BALL_SIZE/2;
-let ballY = 500;
+let platform_X = (GAME_SIZE_W-PLATFORM_SIZE_W)/2;
+let ballX = GAME_SIZE_W/2 - BALL_SIZE/2;
+let ballY = GAME_SIZE_H - PLATFORM_SIZE_H -45 ; 
 
 const assets =await PIXI.Assets.load([
     'assets/ball_3.png',
@@ -60,14 +59,14 @@ app.stage.addChild(field);
 const bg = new PIXI.Sprite(assets['assets/game_background.png']);
 bg.width = 328;
 bg.height = 608;
-bg.x =17;
-bg.y =16;
+bg.x = 17;
+bg.y = 16;
 field.addChild(bg);
 
 const tilesLayer = new PIXI.Container();
  
 tilesLayer.y = 16;
-field.addChild(tilesLayer);;
+field.addChild(tilesLayer);
 
 const TILE_TEXTURE = [
     assets['assets/tile_21.png'],
@@ -92,20 +91,20 @@ ball.y = ballY;
 field.addChild(ball);
 
 const panelStart = new PIXI.Sprite(assets['assets/panel_start.png']);
-panelStart.x = (362 - 160 )/2;
-panelStart.y = (640 - 60)/2;
+panelStart.x = (GAME_SIZE_W - panelStart.width )/2 +17;
+panelStart.y = (GAME_SIZE_H - panelStart.height)/2;
 panelStart.visible = true;
 field.addChild(panelStart);
 
 const panelLost = new PIXI.Sprite(assets['assets/panel_lost.png']);
-panelLost.x =  (362 - 160 )/2;
-panelLost.y = (640 - 60)/2;
+panelLost.x = (GAME_SIZE_W - panelStart.width )/2+17;
+panelLost.y = (GAME_SIZE_H - panelStart.height)/2;
 panelLost.visible = false;
 field.addChild(panelLost);
 
 const panelWin = new PIXI.Sprite(assets['assets/panel_win.png']);
-panelWin.x = (362 - 160 )/2;
-panelWin.y = (640 - 60)/2;
+panelWin.x = (GAME_SIZE_W - panelStart.width )/2+17;
+panelWin.y = (GAME_SIZE_H - panelStart.height)/2;
 panelWin.visible = false;
 field.addChild(panelWin);
 
@@ -153,7 +152,8 @@ const buttons = {
 };
 
 let ballSpeed = 1;
-const BALL_SPEED_MAX = 7;
+const BALL_SPEED_MAX = 3;
+
 let ballAngle  = -Math.PI/4;
 
 let startButton = false; 
@@ -179,6 +179,7 @@ document.addEventListener('keydown', function(event){
         startButton = true; 
         panelStart.visible = false;  
         panelLost.visible = false;
+        panelWin.visible = false;
 
        
         
@@ -201,7 +202,7 @@ document.addEventListener('keyup', function(event){
     }
 });
 
-
+let isPaused = false;
 function move_ball(){
     if (startButton){
         ballX += Math.cos(ballAngle) * ballSpeed;
@@ -220,8 +221,8 @@ function move_ball(){
         ballY = 0;
         ballAngle = - ballAngle;
     }
-    if (ballY + BALL_SIZE >GAME_SIZE_H -16){
-        ballY = GAME_SIZE_H - 16 - BALL_SIZE;  
+    if (ballY + BALL_SIZE >GAME_SIZE_H ){
+        ballY = GAME_SIZE_H  - BALL_SIZE;  
         panelLost.visible = true;
         startButton = false; 
 
@@ -328,11 +329,6 @@ function loop_event(){
 
  }
 
- 
-
-
-
-let isPaused = false;
 const pauseButton = document.querySelector('.bnt-pause');
 pauseButton.addEventListener('click',function(){
     isPaused = !isPaused;
@@ -355,6 +351,7 @@ restartButton.addEventListener('click', function(){
     }
     panelLost.visible = false;
     panelStart.visible = true;
+    panelWin.visible = false;
     platform_X = (GAME_SIZE_W - PLATFORM_SIZE_W) / 2;
     score = 0;
     updateScore();
@@ -365,31 +362,6 @@ app.ticker.add(loop_event);
 
 
 
-
-// /* Блок движения шара */
-
-
-// //начаольное положение шарика
-
-
-
-
-
-
-
-
-
-// // Плиточки 
-
-
-
-
-
-// let tiles = [];
-// let x = 0;
-// let y = 0;
- 
-// const offset_x =20;
 
 
 
