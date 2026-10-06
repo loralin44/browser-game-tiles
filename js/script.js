@@ -1,9 +1,10 @@
 class BreakoutGame{
-    constructor({canvasEl, scoreEl, pauseBnt, restartBnt}){
-        this.canvasEl   = canvasEl;
-        this.scoreEl    = scoreEl;
-        this.pauseBnt   = pauseBnt;
+    constructor({canvasEl, scoreEl, pauseBnt, restartBnt,livesEls}){
+        this.canvasEl = canvasEl;
+        this.scoreEl = scoreEl;
+        this.pauseBnt = pauseBnt;
         this.restartBnt = restartBnt;
+        this.livesEls = livesEls;
 
 
         this.GAME_SIZE_W = 328;
@@ -31,6 +32,7 @@ class BreakoutGame{
         this.isPaused = false;
         this.startButton = false;
         this.score  = 0;
+        this.lives = 3;
        
 
         this.ballSpeed = 1;
@@ -149,6 +151,7 @@ class BreakoutGame{
 
         this._createTiles();
         this._updateScore();
+        this._updateLives();
      
     }
     _createTiles() {
@@ -177,6 +180,13 @@ class BreakoutGame{
         if (this.scoreEl) {
             this.scoreEl.textContent = String(this.score).padStart(6, '0');
         }
+    }
+    _updateLives(){
+        const lifeEls = this.livesEls.querySelectorAll('.life');
+        lifeEls.forEach((el, index) => {
+            el.style.visibility = index < this.lives ? 'visible':'hidden';
+            
+        });
     }
 
     _checkWin() {
@@ -219,7 +229,7 @@ class BreakoutGame{
         this.ballSpeed = 1;
         this.ballAngle = -Math.PI / 4;
         this.ballX     = this.GAME_SIZE_W / 2 - this.BALL_SIZE / 2;
-        this.ballY     = 500;
+        this.ballY = this.GAME_SIZE_H - this.PLATFORM_SIZE_H - 60;
 
         for (let i = 0; i < this.tiles.length; i++) {
             const tile = this.tiles[i];
@@ -234,6 +244,8 @@ class BreakoutGame{
         this.platform_X = (this.GAME_SIZE_W - this.PLATFORM_SIZE_W) / 2;
         this.score = 0;
         this._updateScore();
+        this.lives =3;
+        this._updateLives();
 
         
         this.platform.x = 17 + this.platform_X;
@@ -263,9 +275,22 @@ class BreakoutGame{
             this.ballAngle = -this.ballAngle;
         }
         if (this.ballY + BALL_SIZE > GAME_SIZE_H) {
-            this.ballY = GAME_SIZE_H - BALL_SIZE;
-            this.panelLost.visible = true;
-            this.startButton = false;
+            this.lives-=1;
+            this._updateLives();
+            if(this.lives > 0 ){
+               this.ballSpeed = 1;
+                this.ballAngle = -Math.PI / 4;
+                this.ballX     = this.GAME_SIZE_W / 2 - this.BALL_SIZE / 2;
+                this.ballY = this.GAME_SIZE_H - this.PLATFORM_SIZE_H - 60;
+                this.startButton = false;
+
+            }else if (this.lives === 0){
+                this.ballY = GAME_SIZE_H - BALL_SIZE;
+                this.panelLost.visible = true;
+                this.startButton = false;
+                
+            }
+            
         }
 
         // столкновение с платформой
@@ -387,6 +412,7 @@ const game = new BreakoutGame({
     scoreEl: document.querySelector('#score'),
     pauseBnt: document.querySelector('.bnt-pause'),
     restartBnt: document.querySelector('.bnt-restart'),
+    livesEls: document.querySelector('#lives')
 });
 
 
