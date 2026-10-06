@@ -17,7 +17,7 @@ const GAME_SIZE_H = 608;
 
 const PLATFORM_SIZE_W = 80;
 const PLATFORM_SIZE_H = 30;
-const BALL_SIZE = 32;
+const BALL_SIZE = 24;
 const TILES_SIZE_W = 48;
 const TILES_SIZE_H = 24;
 
@@ -38,7 +38,7 @@ let ballX = 360/2 - BALL_SIZE/2;
 let ballY = 500;
 
 const assets =await PIXI.Assets.load([
-    'assets/ball_2.png',
+    'assets/ball_3.png',
     'assets/platform_5.png',
     'assets/tile_21.png',
     'assets/tile_22.png',
@@ -84,7 +84,7 @@ platform.x = 17 + platform_X;
 platform.y = 16 + PLATFORM_TOP_Y;
 field.addChild(platform);
 
-const ball = new PIXI.Sprite(assets['assets/ball_2.png']);
+const ball = new PIXI.Sprite(assets['assets/ball_3.png']);
 ball.width = BALL_SIZE;
 ball.height = BALL_SIZE;
 ball.x = 17 + ballX;
@@ -265,8 +265,18 @@ function move_ball(){
             checkWin();
 
             if(overlapX< overlapY){
+                if (ballX + BALL_SIZE / 2 < tile.x + TILES_SIZE_W / 2){
+                    ballX = tile.x +BALL_SIZE;
+                }else{
+                    ballX = tile.x + TILES_SIZE_W;
+                }
                 ballAngle = Math.PI - ballAngle;
             }else{
+                if (ballY + BALL_SIZE / 2 < tile.y + TILES_SIZE_H/2){
+                    ballY = tile.y - BALL_SIZE;
+                }else{
+                    ballY = tile.y + TILES_SIZE_H;
+                }
                 ballAngle = -ballAngle;
             }
 
