@@ -244,49 +244,57 @@ function move_ball(){
 
 
     }
+    let collisionHandler = false;
 
     for(let i = 0; i < tiles.length; i++){
         const tile = tiles[i];
         if(!tile.alive) continue;
-
-        
 
         if( ballY < tile.y + TILES_SIZE_H
             && ballY + BALL_SIZE > tile.y
             && ballX + BALL_SIZE > tile.x
             && ballX < tile.x + TILES_SIZE_W
         ){
-            //насколько мяч перекрывает плитку , с какой стороны
-            const overlapX = Math.min(ballX + BALL_SIZE - tile.x, tile.x + TILES_SIZE_W - ballX);
-            const overlapY = Math.min(ballY + BALL_SIZE - tile.y, tile.y +TILES_SIZE_H - ballY);
-            const MIN_DEPTH = 4;
+    
 
+            const fromLeft = ballX + BALL_SIZE - tile.x;
+            const fromRight = tile.x + TILES_SIZE_W - ballX;
+            const fromTop = ballY + BALL_SIZE - tile.y;
+            const fromBottom = tile.y +TILES_SIZE_H - ballY;
+            const velX = Math.cos(ballAngle);
+            const velY = Math.sin(ballAngle);
+            const hitFromLeft = fromLeft < fromRight && velX > 0;
+            const hitFromRight = fromRight < fromLeft && velX < 0;
+            const hitFromTop = fromTop < fromBottom && velY > 0;
+            const hitFromBottom = fromBottom <fromTop && velY < 0;
 
+            const hit = hitFromLeft || hitFromRight || hitFromBottom|| hitFromTop ;
+            if(!hit)continue;
             tile.alive = false;
             tile.sprite.visible = false;
             score += 10 ;
             updateScore();
             checkWin();
-            if( overlapX< MIN_DEPTH && overlapY< MIN_DEPTH){
-                continue;
+            if(!collisionHandler){
+                if(hitFromLeft || hitFromRight){
+                    ballAngle = Math.PI - ballAngle;
+                }
 
-            }
-
-            if(overlapX < overlapY ){
+                if(hitFromTop || hitFromBottom){
+                    ballAngle = - ballAngle;
+                }
+                collisionHandler =true;
                 
-                ballAngle = Math.PI - ballAngle;
+                if (ballSpeed < BALL_SPEED_MAX){
+                    ballSpeed *= 1.02;
             
-   
-            }else{
-                ballAngle = -ballAngle;
-            }
+                }
 
-            if (ballSpeed < BALL_SPEED_MAX){
-                ballSpeed *= 1.04;
-        
             }
-           
-            
+            break;
+          
+
+             
         }
    
     }
