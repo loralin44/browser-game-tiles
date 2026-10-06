@@ -249,6 +249,8 @@ function move_ball(){
         const tile = tiles[i];
         if(!tile.alive) continue;
 
+        
+
         if( ballY < tile.y + TILES_SIZE_H
             && ballY + BALL_SIZE > tile.y
             && ballX + BALL_SIZE > tile.x
@@ -257,26 +259,25 @@ function move_ball(){
             //насколько мяч перекрывает плитку , с какой стороны
             const overlapX = Math.min(ballX + BALL_SIZE - tile.x, tile.x + TILES_SIZE_W - ballX);
             const overlapY = Math.min(ballY + BALL_SIZE - tile.y, tile.y +TILES_SIZE_H - ballY);
+            const MIN_DEPTH = 4;
+
 
             tile.alive = false;
             tile.sprite.visible = false;
             score += 10 ;
             updateScore();
             checkWin();
+            if( overlapX< MIN_DEPTH && overlapY< MIN_DEPTH){
+                continue;
 
-            if(overlapX< overlapY){
-                if (ballX + BALL_SIZE / 2 < tile.x + TILES_SIZE_W / 2){
-                    ballX = tile.x +BALL_SIZE;
-                }else{
-                    ballX = tile.x + TILES_SIZE_W;
-                }
+            }
+
+            if(overlapX < overlapY ){
+                
                 ballAngle = Math.PI - ballAngle;
+            
+   
             }else{
-                if (ballY + BALL_SIZE / 2 < tile.y + TILES_SIZE_H/2){
-                    ballY = tile.y - BALL_SIZE;
-                }else{
-                    ballY = tile.y + TILES_SIZE_H;
-                }
                 ballAngle = -ballAngle;
             }
 
@@ -284,7 +285,7 @@ function move_ball(){
                 ballSpeed *= 1.04;
         
             }
-            break;
+           
             
         }
    
